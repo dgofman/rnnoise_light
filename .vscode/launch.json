@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug rnnoise_demo.exe",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/examples/rnnoise_demo.exe",  // Path to the executable
+      "args": [
+        "docs/test_input.wav",  // Input file path
+        "docs/test_output.raw"  // Output file path
+      ],
+      "stopAtEntry": false,  // Stop at the entry point to allow initial breakpoint setup
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/msys64/mingw64/bin/gdb.exe",  // Path to your GDB debugger
+      "preLaunchTask": "Compile",  // Ensure this task builds your project before debugging
+      "postDebugTask": "Convert",
+      "externalConsole": true  // Optional: open an external console for better output visibility
+    }
+  ]
+}

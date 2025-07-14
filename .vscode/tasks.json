@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+        {
+      "label": "Clean",
+      "type": "shell",
+      "command": "rm",
+      "args": [
+        "-rf",
+        "docs/test_output.raw",
+        "docs/test_output.wav",
+        "examples/rnnoise_demo.exe",
+        "examples/*.о",
+        "examples/*.dll",
+        "src/*.o",
+        "*.o"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Compile",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-O2", "-Wall", "-Wextra", "-pedantic", "-march=native", "-fPIC",
+        "-Wconversion", "-Wshadow", "-Wfloat-equal", "-Wcast-align", "-Wundef",
+        "-Wduplicated-cond", "-Wduplicated-branches", "-Wlogical-op",
+        "-g",
+        "-o",
+        "examples/rnnoise_demo.exe",
+        "examples/rnnoise_demo.c",
+        "src/denoise.c",
+        "src/rnn.c",
+        "src/pitch.c",
+        "src/kiss_fft.c",
+        "src/nnet.c",
+        "src/rnnoise_data.c",
+        "src/rnnoise_tables.c",
+        "-lm"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "dependsOn": "Clean"
+    },
+    {
+      "label": "Convert",
+      "type": "shell",
+      "command": "ffmpeg",
+      "args": [
+        "-f",
+        "s16le",
+        "-ar" ,
+        "48000" ,
+        "-ac" ,
+        "1" ,
+        "-i" ,
+        "docs/test_output.raw",
+        "docs/test_output.wav"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
