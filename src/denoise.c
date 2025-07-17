@@ -48,6 +48,8 @@ DenoiseState *rnnoise_create(int full_denoise)
   init_rnnnoise_tables();
   eband20ms = generate_eband20ms();
   DenoiseState *st = (DenoiseState *)malloc(sizeof(DenoiseState));
+  if (!st) return NULL;
+  memset(st, 0, sizeof(DenoiseState));  // Zero-initialize state
   int ret = init_rnnoise(&st->model, rnnoise_arrays);
   if (ret != 0)
   {
@@ -338,7 +340,7 @@ float rnnoise_process_frame(DenoiseState *st, float *out, const float *in)
   float features[NB_FEATURES];
   float g[NB_BANDS];
   float gf[FREQ_SIZE] = {1};
-  float vad_prob = 0;
+  float vad_prob = 0; //  (Voice Activity Detection)
   static const float a_hp[2] = {-1.99599f, 0.99600f};
   static const float b_hp[2] = {-2, 1};
   rnn_biquad(x, st->mem_hp_x, in, b_hp, a_hp, FRAME_SIZE);
