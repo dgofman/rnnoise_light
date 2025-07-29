@@ -52,8 +52,12 @@ typedef float float_t;
 #define VAL(name, x, value) (x)
 #define SQUARE(x) ((x) * (x))
 #define HALF(x) (.5f * (x))
+#ifndef MIN
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+#endif
+#ifndef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+#endif
 #define ADD(a, b) ((a) + (b))
 #define SUB(a, b) ((a) - (b))
 #define MULT(a, b) ((a) * (b))
